@@ -75,7 +75,7 @@ class AdminController extends Controller
         $data_users->password = bcrypt($request->password);
         $data_users->save();
         $data_admin = User::where('id_aktor',2)->get();
-        return redirect()->route('dataadmin',compact("data_admin"));    
+        return redirect()->route('dataadmin',compact("data_admin"))->with(['success' => 'Admin berhasil ditambah.']);    
     }
 
     public function edit(user $user)
@@ -91,7 +91,7 @@ class AdminController extends Controller
         $data_admin = User::find($user->id);
         $data_admin->update($request->all());
         $data_admin = User::where('id_aktor',2)->get();
-        return redirect()->route('dataadmin',compact("data_admin"));  
+        return redirect()->route('dataadmin',compact("data_admin"))->with(['success' => 'Data admin berhasil diubah.']);  
     }
 
     public function destroy(User $user)
@@ -99,7 +99,7 @@ class AdminController extends Controller
         $data = User::where('id',$user->id)->first();
         $data->delete();
         $data_admin = User::where('id_aktor',2)->get();
-        return redirect()->route('dataadmin',compact("data_admin"));    
+        return redirect()->route('dataadmin',compact("data_admin"))->with(['danger' => 'Data admin berhasil dihapus.']);    
     }
     public function search(Request $request)
     {

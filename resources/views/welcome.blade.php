@@ -45,6 +45,7 @@
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
+ <img src="logo.png" style="width: 1.5cm;" alt="...">&nbsp &nbsp &nbsp &nbsp
             <img src="presisi.png" style="width: 7cm;" alt="..."> <br>
             <h1 class="logo mr-auto"><a href="" style="font-family:Roboto Slab; font-weight:bolder"
                     style="color:#33150e;"></a></h1>
@@ -65,14 +66,14 @@
     </header><!-- End Header -->
 
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex align-items-center">
+    <section id="hero" class="d-flex align-items-center" style="background-image: url('/background-login.jpg')";>
         <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
-                    <img src="{{asset('assets/img/sdmpolri.png')}}" class="mx-auto" style="width: 200px; margin:auto"
+                    <img src="{{ 'logoeppp.png'}}" class="mx-auto" style="width: 400px; margin:auto"
                         class="img-fluid" alt=""><br>
-                    <h1 style="color:#33150e;font-family:ar">Selamat datang di e-PPP</h1>
-                    <h2>BIRO SDM POLDA BENGKULU</h2>
+                    <h1 style="color:white;font-family:ar">Selamat datang di e-PPP</h1>
+                    <h2 style="color:white">BIRO SDM POLDA BENGKULU</h2>
                 </div>
             </div>
             <div class="text-center">
@@ -98,13 +99,13 @@
                     <div class="col-lg-6 pt-3 pt-lg-0 content" data-aos="fade-left" data-aos-delay="100">
                         <?php foreach ($info as $inf) : ?>
                         <h2 style="color:#33150e;"><?php echo $inf->judul ?></h2>
-                        <p style="text-align: justify;"><?php echo $inf->informasi ?></p>
+                        <p style="text-align: justify;">{!! $inf->informasi !!}</p>
                         <hr>
                         <?php endforeach; ?>
                         <h2 style="color:#33150e;">PERKAP NOMOR 3 TAHUN 2011</h2>
-                        <p style="text-align: justify;">tentang pemberian penghargaan di lingkungan kepolisian negara
-                            republik indonesia
-                            <a href="{{route('tampiluu')}}" style="color:blue;">lihat/unduh</a></p>
+                        <p style="text-align: justify;">Tentang Pemberian Penghargaan di Lingkungan Kepolisian Negara
+                            Republik Indonesia. Lihat atau unduh dokumen 
+                            <a href="{{route('tampiluu')}}" style="color:blue;">disini.</a></p>
                         <hr>
                     </div>
                 </div>
@@ -148,7 +149,7 @@
                                     <div class="card-body">
                                         <h2 class="card-title text-center" style="font-size: 23px; font-weight:bolder">
                                             {{ $ber->judul }}</h2>
-                                        <p class="card-text text-justify">{{ $ber->isi }}</p>
+                                        <p class="card-text text-justify">{!! $ber->isi !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +192,7 @@
                                             <i style="color: white; background-color:#33150e;"
                                                 class="icofont-envelope"></i>
                                             <h4 style="color: black;">Email:</h4>
-                                            <p style="color: #99582a;">birosdmpoldabkl@gmail.com</p>
+                                            <p style="color: #99582a;">sdmpoldabengkulu2016@gmail.com</p>
                                         </div>
                                     </div>
                                 </div>
@@ -220,14 +221,13 @@
 
                     <div class="mr-md-auto text-center text-md-left">
                         <div class="copyright">
-                            &copy; Copyright <strong><span>OnePage</span></strong>. All Rights Reserved
+                            &copy; Copyright <strong><span>SDM Polda Bengkulu</span></strong>. All Rights Reserved
                         </div>
                         <div class="credits">
                             <!-- All the links in the footer should remain intact. -->
                             <!-- You can delete the links only if you purchased the pro version. -->
                             <!-- Licensing information: https://bootstrapmade.com/license/ -->
                             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/ -->
-                            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
                         </div>
                     </div>
                     <div class="social-links text-center text-md-right pt-3 pt-md-0">

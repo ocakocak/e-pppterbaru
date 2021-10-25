@@ -64,36 +64,10 @@
                             <input type="text" class="form-control daterange-cus" name="nrpnip">
                         </div>
                     </div>
-                    @if(auth()->user()->id_aktor == 1 || auth()->user()->id_aktor == 2)
+                    @if(auth()->user()->id_aktor == 1)
                     <div class="form-group">
-                        <select class="form-control" id="mySelect" name="jenpeng" required>
-                            <option value="" style="color: grey;" disabled selected>
-                                                                    -Pilih Jenis Penghargaan-</option>
-                                                                <option onselect="sel()" value="Seluruh Data">Seluruh Data</option>
-                                                                <option onselect="pol()" value="Polri">Penghargaan dari
-                                                                    Polri</option>
-                                                                <option onselect="npol()" value="Non Polri">Penghargaan
-                                                                    dari Badan/Instansi Luar Polri</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                                                            <div id="seldat">
-                                                                <input id="data" name="data" type="hidden"
-                                                                    class="form-control" value="1">
-                                                            </div>
-                                                            <div id="pol">
-                                                                <!--<label>Tingkat Penghargaan</label>-->
-                                                                <!--<select class="form-control" id="tingkat"-->
-                                                                <!--    name="tingkat">-->
-                                                                <!--    <option value="" style="color: grey;" disabled-->
-                                                                <!--        selected>-Pilih Tingkat Penghargaan-</option>-->
-                                                                <!--    <option value="Tingkat Polres">Tingkat Polres-->
-                                                                <!--    </option>-->
-                                                                <!--    <option value="Tingkat Polda">Tingkat Polda</option>-->
-                                                                <!--    <option value="Tingkat Mabes">Tingkat Mabes</option>-->
-                                                                <!--</select>-->
                                                                 <label>Jenis Penghargaan</label>
-                                                                <select class="form-control" id="jenis_penghargaan"
+                                                                <select class="form-control"
                                                                     name="jenis_penghargaan">
                                                                     <option value="" style="color: grey;" disabled
                                                                         selected>-Pilih Jenis Penghargaan-</option>
@@ -105,7 +79,6 @@
                                                                     <option value="Tanda Penghargaan">Tanda Penghargaan</option>
                                                                 </select>
                                                             </div>
-                                                        </div>
                     @endif
                     <br>
                     <div class="col-md-12">
@@ -131,8 +104,12 @@
         </div>
     </div>
     <div class="col-md-9 card card-primary">
-        <div class="card-body p-0">
+ <div class="card-body p-0">
             <div class="row col-md-12">
+<div class="mt-3 col-md-12">
+@include('alert')
+</div>
+
                 <div class="col-md-12" align="center">
                     <h4 style="color:#6a381f;text-align:center"><br>Data Penghargaan Personel</h4>
                 </div>
@@ -202,12 +179,12 @@
                                         <div class="modal fade" width="60" id="tambahBukti{{$dg->id_sigasi}}"
                                             tabindex="-1" aria-labelledby="tambahBukti{{$dg->id_sigasi}}Label"
                                             aria-hidden="true">
-                                            <div class="modal-dialog modal-xl mx-auto">
+                                            <div class="modal-dialog mx-auto">
                                                 <!-- <div class="card mx-auto pt-3 pl-3" style="width: 40rem;"> -->
                                                 <div class="modal-content mx-auto">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="tambahBukti{{$dg->id_sigasi}}Label">
-                                                            Tambah Bukti Penghargaan</h5>
+                                                            Bukti Penghargaan</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -235,9 +212,15 @@
                                                                 <div class="col-sm-1">
                                                                     <i class="fas fa-download"></i>
                                                                 </div>
+							@if(auth()->user()->id_aktor==1)	
+								<a onclick="return confirm('Apakah Anda yakin ingin menghapus file bukti penghargaan?')" href="{{ route('hapusbuktipenghargaan', $databukti->id_bukti_penghargaan) }}">
+                                                                        <i class="fas fa-trash-alt"></i>
+                                                                </a>
+							@endif
                                                                 <hr>
                                                                 @endforeach
                                                             </div>
+							@if(auth()->user()->id_aktor == 1)
                                                             <div class="form-group row mr-3 ml-3">
 
                                                                 <label style="font-size: 15px;">Tambah File Bukti
@@ -249,6 +232,7 @@
                                                                 <button class="btn btn-polda mr-1" style="color: white;"
                                                                     type="submit">Tambah File</button>
                                                             </div>
+							@endif
                                                         </form>
                                                     </div>
 
@@ -261,7 +245,7 @@
                                 <td class="align-top">
                                     @if(auth()->user()->id_aktor==1)
                                     <br><a href="{{ route('hapussigasipenghargaan', $dg->id_sigasi) }}"
-                                        class="btn btn-danger btn-action trigger--fire-modal-1" data-toggle="tooltip"
+                                        class="btn btn-danger btn-action trigger--fire-modal-1" onclick="return confirm('Apakah Anda yakin ingin menghapus data penghargaan?');" data-toggle="tooltip"
                                         title=""><i class="fas fa-trash"></i> </a>
                                     @endif
                                 </td>

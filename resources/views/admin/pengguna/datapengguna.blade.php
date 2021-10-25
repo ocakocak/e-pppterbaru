@@ -5,6 +5,7 @@
     <br>
     <h4 style="color:#6a381f;text-align:center">Data User</h4>
     <hr>
+@include('alert')
     <div class="col-md-9" align="left">
         <a href="{{ route('tambahpengguna') }}" class="btn btn-polda" style="color:white;"><i
                 class="fas fa-user-plus"></i>
@@ -16,10 +17,10 @@
                 <tbody>
                     <tr style="width:100px">
                         <th style="width:5px">No</th>
-                        <th style="width:100px">Satker</th>
-                        <th style="width:100px">Kesatuan</th>
-                        <th style="width:100px">Username</th>
-                        <th style="width:200px"></th>
+                        <th style="width:150px">Satker</th>
+                        <th style="width:150px">Kesatuan</th>
+                        <th style="width:150px">Username</th>
+                        <th style="width:50px"></th>
                     </tr>
                     @if ($data_pengguna != null)
                     @foreach ($data_pengguna as $key => $item)
@@ -39,7 +40,7 @@
                                 class="btn btn-polda style=" color:white;"btn-action mr-1" data-toggle="tooltip"
                                 title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i> </a>
                             <a href="{{ route('hapuspengguna', $item->id) }}"
-                                class="btn btn-danger btn-action trigger--fire-modal-1" data-toggle="tooltip"
+                                class="btn btn-danger btn-action trigger--fire-modal-1" onclick="return confirm('Apakah Anda yakin ingin menghapus user?');"  data-toggle="tooltip"
                                 title=""><i class="fas fa-trash"></i> </a>
                         </td>
                     </tr>

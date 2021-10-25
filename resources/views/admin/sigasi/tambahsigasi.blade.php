@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="card" style="border-top-width: 0.2cm; border-top-color: #6a381f">
-    <div class="card-header">
+<div class="mt-3">
+@include('alert')
+</div>    
+<div class="card-header">
         <h4>
             <button data-toggle="modal" data-target="#tambahPersonil" style="color: white;" class="btn btn-polda">
                 <i class="fas fa-plus-circle"></i> &nbsp; Tambah Data Personel
@@ -14,9 +17,10 @@
         <form action="{{ route('tambahdatasigasi') }}" method="post" enctype="multipart/form-data">
             <div class="card-body">
                 @csrf
-                <p style="color: #99582a; font-size:25px; font-weight:bold" class="text-center">Tambah Prestasi dan
-                    Penghargaan</p>
-
+                <p style="color: #99582a; font-size:25px; font-weight:bold" class="text-center">Tambah Prestasi
+		@if(auth()->user()->id_aktor==1)
+		dan Penghargaan</p>
+		@endif
                 <!-- DATA PERSONEL -->
                 <p style="color:#6e0d25; font-weight:bold; font-size:20px">Data Personel</p>
                 <div class="row">
@@ -24,7 +28,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="name">{{__('Nama Personel')}}</label>
-                                <select class="form-control" id="nama" name="nama">
+                                <select class="form-control" id="nama" name="nama" required>
                                     <option value="" style="color: grey;" disabled selected>-Pilih Personel-</option>
                                     @foreach ($data_personil as $pr)
                                     <option value="{{ $pr->id_personil }}">{{ $pr->nama }}</option>
@@ -44,11 +48,12 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Uraian Prestasi</label>
-                                <input name="nama_prestasi" type="text" class="form-control">
+                                <input name="nama_prestasi" type="text" class="form-control" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Unggah file bukti</label>
                                 <input name="file_bukti_prestasi[]" type="file" class="form-control" multiple="true">
+                                <small>Upload file sesuai ketentuan.</small>
                             </div>
                         </div>
                     </div>
@@ -56,13 +61,14 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Unggah File Kronologis Prestasi</label>
-                                <input name="deskripsi" type="file" class="form-control">
+                                <input name="deskripsi" type="file" class="form-control" required>
+                                <small>Upload file sesuai ketentuan</small>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <hr>
+                
 
                 <!-- PENGHARGAAN -->
                 <!--<p style="color:#6e0d25; font-weight:bold; font-size:20px">Surat Permohonan Penghargaan</p>-->
@@ -108,28 +114,9 @@
                             <!--        </select>-->
                             <!--    </div>-->
                             <!--</div>-->
-                            
-                            <div class="form-group col-md-6">
-                                                            <label>Jenis Penghargaan</label>
-                                                            <select class="form-control" id="mySelect"
-                                                                name="jenpeng">
-                                                                <option value="" style="color: grey;" disabled selected>
-                                                                    -Pilih Jenis Penghargaan-</option>
-                                                                <option onselect="pol()" value="Polri">Penghargaan dari
-                                                                    Polri</option>
-                                                                <option onselect="npol()" value="Non Polri">Penghargaan
-                                                                    dari Badan/Instansi Luar Polri</option>
-                                                            </select>
-                                                        </div>
                                                         <div class="form-group col-md-6">
-                                                            <!--<div id="nonpol">-->
-                                                            <!--    <input id="tingkat" name="tingkat" type="text"-->
-                                                            <!--        class="form-control">-->
-                                                            <!--</div>-->
-                                                            <div id="pol">
-                                                                <label>Jenis Penghargaan</label>
-                                                                <select class="form-control" id="jenis_penghargaan"
-                                                                    name="jenis_penghargaan">
+                                                          <label>Jenis Penghargaan</label>
+                                                                <select class="form-control" name="jenis_penghargaan">
                                                                     <option value="" style="color: grey;" disabled
                                                                         selected>-Pilih Jenis Penghargaan-</option>
                                                                     <option value="KPLB">KPLB
@@ -149,8 +136,7 @@
                                                                 <!--    <option value="Tingkat Polda">Tingkat Polda</option>-->
                                                                 <!--    <option value="Tingkat Mabes">Tingkat Mabes</option>-->
                                                                 <!--</select>-->
-                                                            </div>
-                                                        </div>
+                                                         </div>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -163,14 +149,15 @@
                                 <label>Pemberi Penghargaan</label>
                                 <input name="sumber" type="text" class="form-control">
                             </div>
-                            <div class="form-group col-md-6">
-                                <label>Keterangan Penghargaan</label>
-                                <input name="keterangan_penghargaan" type="text" class="form-control">
-                            </div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="row">
+<div class="form-group col-md-6">
+                                <label>Keterangan Penghargaan</label>
+                                <input name="keterangan_penghargaan" type="text" class="form-control">
+                            </div>
+
                             <div class="form-group col-md-6">
                                 <label>Unggah file bukti</label>
                                 <input name="file_bukti_penghargaan[]" type="file" class="form-control" multiple="true">
@@ -183,7 +170,7 @@
             </div>
             @endif
             <div class="card-footer text-right">
-                <button class="btn btn-primary mr-1" type="submit"><i class="fas fa-save"></i></button>
+                <button class="btn btn-polda mr-1" style="color:white" type="submit"><i class="fas fa-save"></i></button>
                 <button class="btn btn-danger" type="reset"><i class="fas fa-eraser"></i></button>
             </div>
         </form>
@@ -206,15 +193,15 @@
                     @csrf
                     <div class="form-group row mr-3 ml-3">
                         <label style="font-size: 15px;">Nama Personel</label>
-                        <input name="nama" type="text" class="form-control">
+                        <input name="nama" type="text" class="form-control" required>
                     </div>
                     <div class="form-group row mr-3 ml-3">
                         <label style="font-size: 15px;">NRP/NIP</label>
-                        <input name="nrpnip" type="text" class="form-control">
+                        <input name="nrpnip" type="text" class="form-control" required>
                     </div>
                     <div class="form-group row mr-3 ml-3">
                         <label style="font-size: 15px;">Pangkat</label>
-                        <select class="form-control" id="pangkat" name="pangkat">
+                        <select class="form-control" id="pangkat" name="pangkat" required>
                             <option disabled selected value="">-Pilih Pangkat-</option>
                             @foreach ($data_pangkat as $p)
                             <option value="{{ $p->id_pangkat }}">{{ $p->pangkats }}</option>
@@ -223,7 +210,7 @@
                     </div>
                     <div class="form-group row mr-3 ml-3">
                         <label style="font-size: 15px;">Jabatan</label>
-                        <input name="jabatan" type="text" class="form-control">
+                        <input name="jabatan" type="text" class="form-control" required>
                     </div>
                     <!-- <div class="form-group row mr-3 ml-3">
                             <label style="font-size: 15px;">Kesatuan</label>
@@ -232,7 +219,7 @@
                     @if(auth()->user()->id_aktor==1)
                     <div class="form-group row mr-3 ml-3">
                         <label style="font-size: 15px;">Kesatuan</label>
-                        <select class="form-control" id="kesatuan" name="kesatuan">
+                        <select class="form-control" id="kesatuan" name="kesatuan" required>
                             @foreach ($data_kesatuan as $k)
                             <option value="{{ $k->id_kesatuan }}">{{ $k->kesatuans }}</option>
                             @endforeach

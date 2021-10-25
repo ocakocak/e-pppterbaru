@@ -5,13 +5,14 @@
     <br>
     <h4 style="color:#6a381f;text-align:center">Data Personel</h4>
     <hr>
+@include('alert')
     <div class="card-body p-0">
         <div class="row col-md-12">
             <div class="col-md-9" align="left">
                 <a href="{{ route('tambahpersonil') }}" class="btn btn-polda" style="color:white;"><i
                         class="fas fa-user-plus"></i>
                     Tambah Personel
-                </a></div>
+                </a></div><br><br><br>
             <div class="col-md-3" align="right">
                 @if(auth()->user()->id_aktor==1)
 
@@ -62,7 +63,7 @@
                                     title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i> </a>
                                 @if(auth()->user()->id_aktor==1)
                                 <a href="{{ route('hapuspersonil', $pers->id_personil) }}"
-                                    class="btn btn-danger btn-action trigger--fire-modal-1" data-toggle="tooltip"
+                                    class="btn btn-danger btn-action trigger--fire-modal-1" onclick="return confirm('Apakah Anda yakin ingin menghapus personel?');"  data-toggle="tooltip"
                                     title=""><i class="fas fa-trash"></i> </a>
                                 @endif
                             </td>

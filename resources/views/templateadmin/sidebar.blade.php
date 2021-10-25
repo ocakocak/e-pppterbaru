@@ -1,6 +1,8 @@
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-    <img style="margin-top: 15px;"src="{{ asset('storage/public/filebuktiprestasi/logoeppp.png')}}" alt="logo" width="120" >
+<a href="http://e-ppp.bengkulu.polri.go.id/">
+    <img style="margin-top: 15px;"src="{{ asset('logoeppp.png')}}" alt="logo" width="120" >
+</a>
 </div>
     <ul class="sidebar-menu">
         <br>

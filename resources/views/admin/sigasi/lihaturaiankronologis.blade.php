@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="card card-primary">
+     <a style="color:#6a381f" class="ml-3 pl-1 mt-3" href="{{ route('datasigasiprestasi') }}">
+        <i class="fas fa-arrow-circle-left"></i></i> Kembali
+    </a>
     <div class="card-header">
         <h4 style="color:#6a381f">File Uraian Kronologis, {{$data_sigasi->personil->nama}}</h4>
     </div>
@@ -14,15 +17,15 @@
             $data_sigasi->extension_deskripsi == "xls")
             <center>
                 <h4 style="color:#6a381f">File Uraian Kronologis Sedang Di Unduh <iframe
-                        src="{{ asset('storage/public/deskripsi/'.$data_sigasi->deskripsi)}}" width="0"
+                        src="{{ asset('storage/deskripsi/'.$data_sigasi->deskripsi)}}" width="0"
                         height="0"></iframe></h4>
 
             </center>
             @elseif($data_sigasi->extension_deskripsi == "pdf")
-            <iframe src="{{ asset('storage/public/deskripsi/'.$data_sigasi->deskripsi)}}" width="1000"
+            <iframe src="{{ asset('storage/deskripsi/'.$data_sigasi->deskripsi)}}" width="1000"
                 height="650"></iframe>
             @else
-            <img src="{{ asset('storage/public/deskripsi/'.$data_sigasi->deskripsi)}}" width="100%">
+            <img src="{{ asset('storage/deskripsi/'.$data_sigasi->deskripsi)}}" width="100%">
             @endif
             @endif
         </div>

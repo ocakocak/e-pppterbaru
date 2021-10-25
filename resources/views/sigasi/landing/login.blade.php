@@ -63,12 +63,16 @@
         <div class="main-wrapper">
             <!-- <div class="main-content"> -->
             <div class="card mx-auto my-auto pt-5 rounded" style="width: 30rem; top:86px">
+   	    	<a style="color:#6a381f" class="ml-3 pl-1 mt-3" href="{{ route('welcome') }}">
+        		<i class="fas fa-arrow-circle-left"></i></i> Kembali
+    		</a>
+		<img class="mx-auto" src="presisi.png" style="width: 13cm; text-align:center" alt="...">
                 <img class="mx-auto" src="presisi.png" style="width: 13cm; text-align:center" alt="...">
                 <h2 style="text-align: center;">Silahkan masuk untuk melanjutkan</h2><br>
                 <form action="{{ route('tambahpersonil') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row mr-3 ml-3">
-                        <label style="font-size: 15px;">Username</label>
+                        <label style="font-size: 15px;">Usernames</label>
                         <input name="nrpnip" type="text" class="form-control">
                     </div>
                     <div class="form-group row mr-3 ml-3">

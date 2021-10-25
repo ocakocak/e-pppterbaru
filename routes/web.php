@@ -1,6 +1,9 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,6 +86,9 @@ Route::post('/tambahdatasigasi', 'App\Http\Controllers\SigasiController@createda
 //tambah bukti
 Route::post('/tambahbuktiprestasi', 'App\Http\Controllers\SigasiController@tambahbuktiprestasi')->name('tambahbuktiprestasi');
 Route::post('/tambahbuktipenghargaan', 'App\Http\Controllers\SigasiController@tambahbuktipenghargaan')->name('tambahbuktipenghargaan');
+// hapus bukti
+Route::get('/hapusbuktiprestasi/{id_bukti_prestasi}', 'App\Http\Controllers\SigasiController@destroybuktiprestasi')->name('hapusbuktiprestasi');
+Route::get('/hapusbuktipenghargaan/{id_bukti_penghargaan}', 'App\Http\Controllers\SigasiController@destroybuktipenghargaan')->name('hapusbuktipenghargaan');
 //tindak lanjut
 Route::get('/tindaksigasi/{sigasi}', 'App\Http\Controllers\SigasiController@tindak')->name('tindaksigasi');
 Route::post('/tindaklanjutsigasi/{sigasi}', 'App\Http\Controllers\SigasiController@tindaklanjutsigasi')->name('tindaklanjutsigasi');
@@ -99,6 +105,7 @@ Route::get('/editsigasi/{sigasi}', 'App\Http\Controllers\SigasiController@editsi
 Route::patch('/updatesigasi/{sigasi}', 'App\Http\Controllers\SigasiController@update')->name('updatesigasi');
 Route::patch('/updatedatasigasi/{sigasi}', 'App\Http\Controllers\SigasiController@updatedatasigasi')->name('updatedatasigasi');
 Route::patch('/beripenghargaan/{sigasi}', 'App\Http\Controllers\SigasiController@beripenghargaan')->name('beripenghargaan');
+Route::patch('/updatekronologis/{sigasi}', 'App\Http\Controllers\SigasiController@updatekronologis')->name('updatekronologis');
 //hapus prestasi dan penghargaan
 Route::get('/hapussigasi/{sigasi}', 'App\Http\Controllers\SigasiController@destroy')->name('hapussigasi');
 Route::get('/hapussigasipenghargaan/{sigasi}', 'App\Http\Controllers\SigasiController@destroypenghargaan')->name('hapussigasipenghargaan');

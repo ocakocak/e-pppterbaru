@@ -62,7 +62,7 @@ class LandingController extends Controller
     {
         $berita = Berita::find($id_berita);
         $berita->update($request->all());
-        return redirect()->route('berita', compact("berita"));
+        return redirect()->route('berita', compact("berita"))->with(['success' => 'Berita berhasil di ubah.']);
     }
 
     public function hapusberita($id_berita)
@@ -97,7 +97,7 @@ class LandingController extends Controller
             ]);
         }
 
-        return redirect()->route('berita');
+        return redirect()->route('berita')->with(['success' => 'Berita berhasil ditambahkan.']);
     }
 
     public function info()

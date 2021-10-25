@@ -26,7 +26,7 @@ class PenggunaController extends Controller
         }else{
             $data_pengguna = User::where('id_user',auth()->user()->id_user)->get();
         }
-        return view('admin.pengguna.datapengguna', compact("data_pengguna"));   
+        return view('admin.pengguna.datapengguna', compact("data_pengguna"));
     }
 
     public function getPengguna(Request $request)
@@ -43,8 +43,7 @@ class PenggunaController extends Controller
             ->make(true);
         }
     }
-    
-    
+
     public function create()
     {
         $data_pangkat = Pangkat::all();
@@ -82,7 +81,7 @@ class PenggunaController extends Controller
         }else{
             $data_pengguna = User::where('id_user',auth()->user()->id_user)->get();
         }
-        return redirect()->route('datapengguna',compact("data_pengguna"));    
+        return redirect()->route('datapengguna',compact("data_pengguna"))->with(['success' => 'User berhasil ditambahkan.']);
     }
 
     public function edit($id)
@@ -115,7 +114,7 @@ class PenggunaController extends Controller
         }else{
             $data_pengguna = User::where('id_user',auth()->user()->id_user)->get();
         }
-        return redirect()->route('datapengguna',compact("data_pengguna"));  
+        return redirect()->route('datapengguna',compact("data_pengguna"))->with(['success' => 'Data user berhasil diubah.']);
     }
 
     public function destroy($id)
@@ -129,7 +128,7 @@ class PenggunaController extends Controller
         }else{
             $data_pengguna = User::where('id_user',auth()->user()->id_user)->get();
         }
-        return redirect()->route('datapengguna',compact("data_pengguna"));    
+        return redirect()->route('datapengguna',compact("data_pengguna"))->with(['danger' => 'Data user telah dihapus.']);
     }
     public function search(Request $request)
     {

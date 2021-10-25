@@ -5,6 +5,7 @@
     <br>
     <h4 style="color:#6a381f;text-align:center">Data Admin</h4>
     <hr>
+@include('alert')
     <div class="card-body p-0">
         <div class="row col-md-12">
             <div class="col-md-9" align="left">
@@ -33,9 +34,9 @@
                     <tbody>
                         <tr style="width:100px">
                             <th style="width:5px">No</th>
-                            <th style="width:100px">Kesatuan</th>
-                            <th style="width:100px">Username</th>
-                            <th style="width:200px"></th>
+                            <th style="width:150px">Kesatuan</th>
+                            <th style="width:150px">Username</th>
+                            <th style="width:50px"></th>
                         </tr>
                         @if ($data_admin != null)
                         @foreach ($data_admin as $key => $item)
@@ -47,7 +48,7 @@
                                 class="btn btn-polda style=" color:white;"btn-action mr-1" data-toggle="tooltip"
                                 title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i> </a>
                             <a href="{{ route('hapusadmin', $item->id) }}"
-                                class="btn btn-danger btn-action trigger--fire-modal-1" data-toggle="tooltip"
+                                class="btn btn-danger btn-action trigger--fire-modal-1" onclick="return confirm('Apakah Anda yakin ingin menghapus admin?');" data-toggle="tooltip"
                                 title=""><i class="fas fa-trash"></i> </a>
                         </td>
                         </tr>

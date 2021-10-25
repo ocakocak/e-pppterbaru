@@ -18,6 +18,7 @@ class SigasiController extends Controller
     {
         $this->middleware('auth');
     }
+    //MUNCULKAN DATA PRESTASI
     public function indexprestasi()
     {
         if(auth()->user()->id_aktor==1 ){
@@ -26,11 +27,19 @@ class SigasiController extends Controller
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
         }elseif(auth()->user()->id_aktor==2 ){
+            if(auth()->user()->id_satker==8){
+                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',11)->get();
+            $data_personil=Personil::where('id_kesatuan',11)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
             $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
             ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
             $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
+            }
         }else{
             $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
             $data_personil=Personil::where('id_user',auth()->user()->id)->get();
@@ -39,362 +48,389 @@ class SigasiController extends Controller
         }
         return view('admin.sigasi.dataprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));   
     }
-    public function tampilcetakprestasi()
-    {
-    if(auth()->user()->id_aktor==1 ){
-            $data_sigasi = Sigasi::all();
-            $data_personil=Personil::all();
-            $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
-        }elseif(auth()->user()->id_aktor==2 ){
-            $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-        ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
-        $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
-            $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
-        }else{
-        $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
-        $data_personil=Personil::where('id_user',auth()->user()->id)->get();
-        $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
-        }
-    return view('admin.sigasi.tampilcetakprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));   
-}
+    
+//     public function tampilcetakprestasi()
+//     {
+//   if(auth()->user()->id_aktor==1 ){
+//             $data_sigasi = Sigasi::all();
+//             $data_personil=Personil::all();
+//             $data_pangkat=Pangkat::all();
+//             $data_kesatuan=Kesatuan::all();
+//         }elseif(auth()->user()->id_aktor==2 ){
+//             if(auth()->user()->id_satker==8){
+//                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+//             ->where('tb_personil.id_kesatuan',11)->get();
+//             $data_personil=Personil::where('id_kesatuan',11)->get();
+//             $data_pangkat=Pangkat::all();
+//             $data_kesatuan=Kesatuan::all();
+//             }else{
+//             $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+//             ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
+//             $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+//             $data_pangkat=Pangkat::all();
+//             $data_kesatuan=Kesatuan::all();
+//             }
+//         }else{
+//             $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
+//             $data_personil=Personil::where('id_user',auth()->user()->id)->get();
+//             $data_pangkat=Pangkat::all();
+//             $data_kesatuan=Kesatuan::all();
+//         }
+//     return view('admin.sigasi.tampilcetakprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));   
+// }
+
+//MUNCULKAN DATA PENGHARGAAN
 public function indexpenghargaan()
 {
     if(auth()->user()->id_aktor==1 ){
             $data_sigasi = Sigasi::all();
             $data_personil=Personil::all();
             $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
+            $data_kesatuan=Kesatuan::all();
         }elseif(auth()->user()->id_aktor==2 ){
-            $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-        ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
-        $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+            if(auth()->user()->id_satker==8){
+                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',11)->get();
+            $data_personil=Personil::where('id_kesatuan',11)->get();
             $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
+            $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
+            $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }
         }else{
-        $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
-        $data_personil=Personil::where('id_user',auth()->user()->id)->get();
-        $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
+            $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
+            $data_personil=Personil::where('id_user',auth()->user()->id)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
         }
         return view('admin.sigasi.datapenghargaan', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));  
     }
-    public function exportprestasi(Request $request)
-    {
-        if(auth()->user()->id_aktor==1){
-            if($request->from_date != null && $request->to_date != null){
-                if($request->data == "2"){
-                    $data_sigasi = Sigasi::whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-                elseif($request->data == "4"){
-                    $data_sigasi = Sigasi::where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-                elseif($request->data == "6"){
-                    $data_sigasi = Sigasi::where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-            }else{
-                if($request->data == "1"){
-                    $data_sigasi = Sigasi::all();
-                }
-                elseif($request->data == "3"){
-                    $data_sigasi = Sigasi::where('keterangan',"!=",null)->get();
-                }
-                elseif($request->data == "5"){
-                    $data_sigasi = Sigasi::where('keterangan',null)->get();
-                }
-            }
-        }
-        else{
-            if($request->from_date != null && $request->to_date != null){
-                if($request->data == "2"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-                elseif($request->data == "4"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-                elseif($request->data == "6"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-            }else{
-                if($request->data == "1"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->get();
-                }
-                elseif($request->data == "3"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('keterangan',"!=",null)->get();
-                }
-                elseif($request->data == "5"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('keterangan',null)->get();
-                }
-            }
-        }
-        return view('admin.sigasi.exportprestasi', compact("data_sigasi"));   
-    }
-    public function exportpenghargaan(Request $request)
-    {
-        if(auth()->user()->id_aktor==1){
-        if($request->from_date != null && $request->to_date != null){
-            if($request->data == "2"){
-                $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                ->get();
-            }
-            elseif($request->data == "4"){
-                $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                ->get();
-            }
-            elseif($request->data == "6"){
-                $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                ->get();
-            }
-        }else{
-            if($request->data == "1"){
-                $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->get();
-            }
-            elseif($request->data == "3"){
-                $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan',"!=",null)->get();
-            }
-            elseif($request->data == "5"){
-                $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan',null)->get();
-            }
-        }
-    }
-        else{
-        if($request->from_date != null && $request->to_date != null){
-            if($request->data == "2"){
-                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                ->select('tb_sigasi.*', 'tb_personil.*')
-                ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                ->where('nama_penghargaan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                ->get();
-            }
-            elseif($request->data == "4"){
-                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                ->select('tb_sigasi.*', 'tb_personil.*')
-                ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                ->where('nama_penghargaan','!=',null)->where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                ->get();
-            }
-            elseif($request->data == "6"){
-                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                ->select('tb_sigasi.*', 'tb_personil.*')
-                ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                ->where('nama_penghargaan','!=',null)->where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                ->get();
-            }
-        }else{
-            if($request->data == "1"){
-                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                ->select('tb_sigasi.*', 'tb_personil.*')
-                ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                ->where('nama_penghargaan','!=',null)->get();
-            }
-            elseif($request->data == "3"){
-                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                ->select('tb_sigasi.*', 'tb_personil.*')
-                ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                ->where('nama_penghargaan','!=',null)->where('keterangan',"!=",null)->get();
-            }
-            elseif($request->data == "5"){
-                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                ->select('tb_sigasi.*', 'tb_personil.*')
-                ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                ->where('nama_penghargaan','!=',null)->where('keterangan',null)->get();
-            }
-        }
-    }
-        return view('admin.sigasi.exportpenghargaan', compact("data_sigasi"));   
-    }
-    public function cetakprestasi(Request $request)
-    {
-        if(auth()->user()->id_aktor==1){
-            if($request->from_date != null && $request->to_date != null){
-                if($request->data == "2"){
-                    $data_sigasi = Sigasi::whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-                elseif($request->data == "4"){
-                    $data_sigasi = Sigasi::where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-                elseif($request->data == "6"){
-                    $data_sigasi = Sigasi::where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-            }else{
-                if($request->data == "1"){
-                    $data_sigasi = Sigasi::all();
-                }
-                elseif($request->data == "3"){
-                    $data_sigasi = Sigasi::where('keterangan',"!=",null)->get();
-                }
-                elseif($request->data == "5"){
-                    $data_sigasi = Sigasi::where('keterangan',null)->get();
-                }
-            }
-        }
-        else{
-            if($request->from_date != null && $request->to_date != null){
-                if($request->data == "2"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-                elseif($request->data == "4"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-                elseif($request->data == "6"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-            }else{
-                if($request->data == "1"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->get();
-                }
-                elseif($request->data == "3"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('keterangan',"!=",null)->get();
-                }
-                elseif($request->data == "5"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('keterangan',null)->get();
-                }
-            }
-        }
-        return view('admin.sigasi.cetakprestasi', compact("data_sigasi"));   
-    }
-    public function cetakpenghargaan(Request $request)
-    {
-        if(auth()->user()->id_aktor==1){
-            if($request->from_date != null && $request->to_date != null){
-                if($request->data == "2"){
-                    $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-                elseif($request->data == "4"){
-                    $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-                elseif($request->data == "6"){
-                    $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-            }else{
-                if($request->data == "1"){
-                    $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->get();
-                }
-                elseif($request->data == "3"){
-                    $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan',"!=",null)->get();
-                }
-                elseif($request->data == "5"){
-                    $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan',null)->get();
-                }
-            }
-        }
-        else{
-            if($request->from_date != null && $request->to_date != null){
-                if($request->data == "2"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('nama_penghargaan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-                elseif($request->data == "4"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('nama_penghargaan','!=',null)->where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-                elseif($request->data == "6"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('nama_penghargaan','!=',null)->where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
-                    ->get();
-                }
-            }else{
-                if($request->data == "1"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('nama_penghargaan','!=',null)->get();
-                }
-                elseif($request->data == "3"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('nama_penghargaan','!=',null)->where('keterangan',"!=",null)->get();
-                }
-                elseif($request->data == "5"){
-                    $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                    ->select('tb_sigasi.*', 'tb_personil.*')
-                    ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
-                    ->where('nama_penghargaan','!=',null)->where('keterangan',null)->get();
-                }
-            }
-        }
-        return view('admin.sigasi.cetakpenghargaan', compact("data_sigasi"));   
-    }
+    // public function exportprestasi(Request $request)
+    // {
+    //     if(auth()->user()->id_aktor==1){
+    //         if($request->from_date != null && $request->to_date != null){
+    //             if($request->data == "2"){
+    //                 $data_sigasi = Sigasi::whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "4"){
+    //                 $data_sigasi = Sigasi::where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "6"){
+    //                 $data_sigasi = Sigasi::where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //         }else{
+    //             if($request->data == "1"){
+    //                 $data_sigasi = Sigasi::all();
+    //             }
+    //             elseif($request->data == "3"){
+    //                 $data_sigasi = Sigasi::where('keterangan',"!=",null)->get();
+    //             }
+    //             elseif($request->data == "5"){
+    //                 $data_sigasi = Sigasi::where('keterangan',null)->get();
+    //             }
+    //         }
+    //     }
+    //     else{
+    //         if($request->from_date != null && $request->to_date != null){
+    //             if($request->data == "2"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "4"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "6"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //         }else{
+    //             if($request->data == "1"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "3"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('keterangan',"!=",null)->get();
+    //             }
+    //             elseif($request->data == "5"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('keterangan',null)->get();
+    //             }
+    //         }
+    //     }
+    //     return view('admin.sigasi.exportprestasi', compact("data_sigasi"));   
+    // }
+    // public function exportpenghargaan(Request $request)
+    // {
+    //     if(auth()->user()->id_aktor==1){
+    //     if($request->from_date != null && $request->to_date != null){
+    //         if($request->data == "2"){
+    //             $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //             ->get();
+    //         }
+    //         elseif($request->data == "4"){
+    //             $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //             ->get();
+    //         }
+    //         elseif($request->data == "6"){
+    //             $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //             ->get();
+    //         }
+    //     }else{
+    //         if($request->data == "1"){
+    //             $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->get();
+    //         }
+    //         elseif($request->data == "3"){
+    //             $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan',"!=",null)->get();
+    //         }
+    //         elseif($request->data == "5"){
+    //             $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan',null)->get();
+    //         }
+    //     }
+    // }
+    //     else{
+    //     if($request->from_date != null && $request->to_date != null){
+    //         if($request->data == "2"){
+    //             $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //             ->select('tb_sigasi.*', 'tb_personil.*')
+    //             ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //             ->where('nama_penghargaan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //             ->get();
+    //         }
+    //         elseif($request->data == "4"){
+    //             $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //             ->select('tb_sigasi.*', 'tb_personil.*')
+    //             ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //             ->where('nama_penghargaan','!=',null)->where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //             ->get();
+    //         }
+    //         elseif($request->data == "6"){
+    //             $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //             ->select('tb_sigasi.*', 'tb_personil.*')
+    //             ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //             ->where('nama_penghargaan','!=',null)->where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //             ->get();
+    //         }
+    //     }else{
+    //         if($request->data == "1"){
+    //             $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //             ->select('tb_sigasi.*', 'tb_personil.*')
+    //             ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //             ->where('nama_penghargaan','!=',null)->get();
+    //         }
+    //         elseif($request->data == "3"){
+    //             $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //             ->select('tb_sigasi.*', 'tb_personil.*')
+    //             ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //             ->where('nama_penghargaan','!=',null)->where('keterangan',"!=",null)->get();
+    //         }
+    //         elseif($request->data == "5"){
+    //             $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //             ->select('tb_sigasi.*', 'tb_personil.*')
+    //             ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //             ->where('nama_penghargaan','!=',null)->where('keterangan',null)->get();
+    //         }
+    //     }
+    // }
+    //     return view('admin.sigasi.exportpenghargaan', compact("data_sigasi"));   
+    // }
+    // public function cetakprestasi(Request $request)
+    // {
+    //     if(auth()->user()->id_aktor==1){
+    //         if($request->from_date != null && $request->to_date != null){
+    //             if($request->data == "2"){
+    //                 $data_sigasi = Sigasi::whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "4"){
+    //                 $data_sigasi = Sigasi::where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "6"){
+    //                 $data_sigasi = Sigasi::where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //         }else{
+    //             if($request->data == "1"){
+    //                 $data_sigasi = Sigasi::all();
+    //             }
+    //             elseif($request->data == "3"){
+    //                 $data_sigasi = Sigasi::where('keterangan',"!=",null)->get();
+    //             }
+    //             elseif($request->data == "5"){
+    //                 $data_sigasi = Sigasi::where('keterangan',null)->get();
+    //             }
+    //         }
+    //     }
+    //     else{
+    //         if($request->from_date != null && $request->to_date != null){
+    //             if($request->data == "2"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "4"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "6"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //         }else{
+    //             if($request->data == "1"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "3"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('keterangan',"!=",null)->get();
+    //             }
+    //             elseif($request->data == "5"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('keterangan',null)->get();
+    //             }
+    //         }
+    //     }
+    //     return view('admin.sigasi.cetakprestasi', compact("data_sigasi"));   
+    // }
+    // public function cetakpenghargaan(Request $request)
+    // {
+    //     if(auth()->user()->id_aktor==1){
+    //         if($request->from_date != null && $request->to_date != null){
+    //             if($request->data == "2"){
+    //                 $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "4"){
+    //                 $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "6"){
+    //                 $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //         }else{
+    //             if($request->data == "1"){
+    //                 $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->get();
+    //             }
+    //             elseif($request->data == "3"){
+    //                 $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan',"!=",null)->get();
+    //             }
+    //             elseif($request->data == "5"){
+    //                 $data_sigasi = Sigasi::where('nama_penghargaan','!=',null)->where('keterangan',null)->get();
+    //             }
+    //         }
+    //     }
+    //     else{
+    //         if($request->from_date != null && $request->to_date != null){
+    //             if($request->data == "2"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('nama_penghargaan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "4"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('nama_penghargaan','!=',null)->where('keterangan','!=',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //             elseif($request->data == "6"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('nama_penghargaan','!=',null)->where('keterangan',null)->whereBetween('tanggal_input', array($request->from_date, $request->to_date))
+    //                 ->get();
+    //             }
+    //         }else{
+    //             if($request->data == "1"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('nama_penghargaan','!=',null)->get();
+    //             }
+    //             elseif($request->data == "3"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('nama_penghargaan','!=',null)->where('keterangan',"!=",null)->get();
+    //             }
+    //             elseif($request->data == "5"){
+    //                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //                 ->select('tb_sigasi.*', 'tb_personil.*')
+    //                 ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)
+    //                 ->where('nama_penghargaan','!=',null)->where('keterangan',null)->get();
+    //             }
+    //         }
+    //     }
+    //     return view('admin.sigasi.cetakpenghargaan', compact("data_sigasi"));   
+    // }
+    
+    //UNTUK MUNCULKAN SURAT DARI USER
     public function lihatbuktisurat($id_sigasi)
     {
         $data_sigasi = Sigasi::where('id_sigasi',$id_sigasi)->first();
         $data_personil=Personil::all();
         return view('admin.sigasi.lihatbuktisurat', compact("data_sigasi","data_personil"));   
     }
+    
+    //UNTUK MUNCULKAN SURAT DARI ADMIN
     public function lihatbuktisuratadmin($id_sigasi)
     {
         $data_sigasi = Sigasi::where('id_sigasi',$id_sigasi)->first();
         $data_personil=Personil::all();
         return view('admin.sigasi.lihatbuktisuratadmin', compact("data_sigasi","data_personil"));   
     }
+    
+    //UNTUK MUNCULKAN URAIAN KRONOLOGIS
     public function lihaturaiankronologis($id_sigasi)
     {
         $data_sigasi = Sigasi::where('id_sigasi',$id_sigasi)->first();
         $data_personil=Personil::all();
         return view('admin.sigasi.lihaturaiankronologis', compact("data_sigasi","data_personil"));   
     }
+    
+    //MUNCULKAN BUKTI PRESTASI
     public function lihatbukti($id_bukti_prestasi)
     {
         $data_bukti = BuktiPrestasi::where('id_bukti_prestasi',$id_bukti_prestasi)->first();
@@ -403,6 +439,8 @@ public function indexpenghargaan()
         $data_personil=Personil::all();
         return view('admin.sigasi.lihatbukti', compact("data_sigasi","data_bukti","data_personil"));   
     }
+    
+    //MUNCULKAN BUKTI PENGHARGAAN
     public  function lihatbukti2($id_bukti_penghargaan)
     {
         $data_bukti = BuktiPenghargaan::where('id_bukti_penghargaan',$id_bukti_penghargaan)->first();
@@ -412,6 +450,7 @@ public function indexpenghargaan()
         return view('admin.sigasi.lihatbuktipenghargaan', compact("data_sigasi","data_bukti","data_personil"));   
     }
     
+    //MUNCULKAN FORMULIR TAMBAH DATA SIGASI DAN PENGHARGAAN
     public function create()
     {
         if(auth()->user()->id_aktor==1 ){
@@ -429,6 +468,7 @@ public function indexpenghargaan()
             return view('admin.sigasi.tambahsigasi', compact("data_personil","data_pangkat","data_kesatuan"));    
     }
     
+    //MENAMBAH DATA SIGASI DAN PENGHARGAAN
     public function createdata(Request $request)
     {
         if ($request->hasFile('file_bukti_surat')) {
@@ -456,12 +496,7 @@ public function indexpenghargaan()
             $extensiondeskripsi=null;
         }
         
-        if(auth()->user()->id_aktor==1){
-            $keterangan = 2;
-        }else{
-            $keterangan = 0;
-        }
-        
+             
         $Pengpres = Sigasi::create([
             'id_personil' => $request->nama,
             'jenis_penghargaan' => $request->jenis_penghargaan,
@@ -477,7 +512,7 @@ public function indexpenghargaan()
             'extension_deskripsi'=>$extensiondeskripsi,
             'tanggal_input' => date('Y-m-d'),
             'id_user' => auth()->user()->id,
-            'keterangan' => $keterangan,
+            'keterangan' => 0,
         ]);
         if ($request->hasFile('file_bukti_penghargaan')) {
             $files = [];
@@ -509,9 +544,10 @@ public function indexpenghargaan()
             ]);
         }
         }
-        return redirect()->route('tambahsigasi');
+        return redirect()->route('tambahsigasi')->with(['success' => 'Data berhasil ditambah.']);
     }
 
+//MUNCULKAN FORMULIR EDIT DATA PRESTASI
     public function editsigasi(sigasi $sigasi)
     {
         $data_sigasi = Sigasi::find($sigasi->id_sigasi);
@@ -528,7 +564,31 @@ public function indexpenghargaan()
             $data_pangkat=Pangkat::all();
             return view('admin.sigasi.editsigasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));
         }
-        
+
+ public function updatekronologis(Request $request, sigasi $sigasi)
+        {
+            $data_sigasi = Sigasi::find($sigasi->id_sigasi);
+if ($request->hasFile('deskripsi')) {
+            $file=$request->deskripsi;
+            $filenameWithExt = $file->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extensiondeskripsi = $file->getClientOriginalExtension();
+            $filenameSimpandeskripsi = $request->judul_deskripsi . $file->getClientOriginalName();
+            $path1 = $file->storeAs('public/deskripsi/', $filenameSimpandeskripsi);
+        }
+ if($request->deskripsi==null){
+            $filenameSimpandeskripsi=null;
+            $extensiondeskripsi=null;
+        }
+        $data_sigasi->update([
+            'deskripsi' => $filenameSimpandeskripsi,
+            'extension_deskripsi'=>$extensiondeskripsi,
+       ]);
+ return redirect()->route('datasigasiprestasi')->with(['success'=>'Uraian kronologis berhasil diubah.']);
+}        
+
+
+        //MENGUBAH DATA PRESTASI YG ADA DI DATABASE
         public function updatedatasigasi(Request $request, sigasi $sigasi)
         {
             $data_sigasi = Sigasi::find($sigasi->id_sigasi);
@@ -559,19 +619,8 @@ public function indexpenghargaan()
         }
         $data_sigasi->update([
             'id_personil' => $request->nama,
-            'jenis_penghargaan' => $request->jenis_penghargaan,
-            'tingkat' => $request->tingkat,
-            'nama_penghargaan' => $request->nama_penghargaan,
-            'keterangan_penghargaan' => $request->keterangan_penghargaan,
-            'sumber' => $request->sumber,
-            'extension_file_bukti_surat'=>$extensionsurat,
-            'jenis_surat'=>$extensionsurat,
             'nama_prestasi' => $request->nama_prestasi,
-            'deskripsi' => $filenameSimpandeskripsi,
-            'extension_deskripsi'=>$extensiondeskripsi,
-            'tanggal_input' => date('Y-m-d'),
             'id_user' => auth()->user()->id,
-            'keterangan' => $data_sigasi->keterangan,
         ]);
 
         if ($request->hasFile('file_bukti_penghargaan')) {
@@ -594,19 +643,28 @@ public function indexpenghargaan()
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
         }elseif(auth()->user()->id_aktor==2 ){
+            if(auth()->user()->id_satker==8){
+                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',11)->get();
+            $data_personil=Personil::where('id_kesatuan',11)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
             $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
             ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
             $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
+            }
         }else{
             $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
             $data_personil=Personil::where('id_user',auth()->user()->id)->get();
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
         }
-        return view('admin.sigasi.dataprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));   
+        return redirect()->route('datasigasiprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"))->with(['success'=>'Data berhasil diubah.']);   
     }
+    
     public function update(Request $request, sigasi $sigasi)
     {
         $data_sigasi = Sigasi::find($sigasi->id_sigasi);
@@ -615,21 +673,31 @@ public function indexpenghargaan()
             $data_sigasi = Sigasi::all();
             $data_personil=Personil::all();
             $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
+            $data_kesatuan=Kesatuan::all();
         }elseif(auth()->user()->id_aktor==2 ){
-            $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-        ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
-        $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+            if(auth()->user()->id_satker==8){
+                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',11)->get();
+            $data_personil=Personil::where('id_kesatuan',11)->get();
             $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
+            $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
+            $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }
         }else{
-        $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
-        $data_personil=Personil::where('id_user',auth()->user()->id)->get();
-        $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
+            $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
+            $data_personil=Personil::where('id_user',auth()->user()->id)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
         }
         return redirect()->route('datasigasi',compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));  
     }
+    
+    //UNTUK BERI PENGHARGAAN
     public function beripenghargaan(Request $request, sigasi $sigasi)
     {
         $data_sigasi = Sigasi::find($sigasi->id_sigasi);
@@ -660,11 +728,19 @@ public function indexpenghargaan()
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
         }elseif(auth()->user()->id_aktor==2 ){
+            if(auth()->user()->id_satker==8){
+                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',11)->get();
+            $data_personil=Personil::where('id_kesatuan',11)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
             $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
             ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
             $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
+            }
         }else{
             $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
             $data_personil=Personil::where('id_user',auth()->user()->id)->get();
@@ -673,14 +749,16 @@ public function indexpenghargaan()
         }
         return redirect()->route('datasigasiprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));   
     }
-    public function tindak(Request $request, sigasi $sigasi)
-    {
-        $data_sigasi = Sigasi::find($sigasi->id_sigasi);
-        if($data_sigasi->status_tindakan == 'Belum Ditindak'){
-        $data_sigasi->update(array('status_tindakan' => 'Sudah Ditindak'));}
-        else{$data_sigasi->update(array('status_tindakan' => 'Belum Ditindak'));}
-        return redirect()->route('datasigasi',compact("data_sigasi"));  
-    }
+    // public function tindak(Request $request, sigasi $sigasi)
+    // {
+    //     $data_sigasi = Sigasi::find($sigasi->id_sigasi);
+    //     if($data_sigasi->status_tindakan == 'Belum Ditindak'){
+    //     $data_sigasi->update(array('status_tindakan' => 'Sudah Ditindak'));}
+    //     else{$data_sigasi->update(array('status_tindakan' => 'Belum Ditindak'));}
+    //     return redirect()->route('datasigasi',compact("data_sigasi"));  
+    // }
+    
+    //UNTUK MENINDAKLANJUTI DATA PRESTASI 
     public function tindaklanjutsigasi(Request $request, sigasi $sigasi)
     {
         $data = Sigasi::find($sigasi->id_sigasi);
@@ -711,8 +789,25 @@ public function indexpenghargaan()
         if($data->keterangan == 0){
             $data->update(array('keterangan'=>1));
         }elseif($data->keterangan == 1){
+	if($request->catatan_validasi != null){
+        $validasi= Validasi::create([
+            'id_sigasi' => $sigasi->id_sigasi,
+            'status' => $request->status,
+            'catatan_validasi' => $request->catatan_validasi,
+        ]);
+            }elseif($request->catatan_validasi != null){
+                $validasi= Validasi::create([
+            'id_sigasi' => $sigasi->id_sigasi,
+            'status' => $request->status,
+            'catatan_validasi' => '',
+        ]);
+            }
+            if($request->status==1){
             $data->update(array('keterangan'=>2));
-        }elseif($data->keterangan == 2){
+        }elseif($request->status==2){
+            $data->update(array('keterangan'=>0));
+        }
+	}elseif($data->keterangan == 2){
             $data->update(array('keterangan'=>3));
         }
         if(auth()->user()->id_aktor==1 ){
@@ -721,19 +816,29 @@ public function indexpenghargaan()
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
         }elseif(auth()->user()->id_aktor==2 ){
+            if(auth()->user()->id_satker==8){
+                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',11)->get();
+            $data_personil=Personil::where('id_kesatuan',11)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
             $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
             ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
             $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
+            }
         }else{
             $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
             $data_personil=Personil::where('id_user',auth()->user()->id)->get();
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
         }
-        return redirect()->route('datasigasiprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));   
+        return redirect()->route('datasigasiprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"))->with(['success' => 'Data berhasil ditindaklanjuti.']);   
     }
+    
+    //UNTUK VERIFIKASI DATA
     public function validasiprestasi(Request $request,$id_sigasi)
     {
         $data = Sigasi::find($id_sigasi);
@@ -756,20 +861,30 @@ public function indexpenghargaan()
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
         }elseif(auth()->user()->id_aktor==2 ){
+            if(auth()->user()->id_satker==8){
+                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',11)->get();
+            $data_personil=Personil::where('id_kesatuan',11)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
             $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
             ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
             $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
+            }
         }else{
             $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
             $data_personil=Personil::where('id_user',auth()->user()->id)->get();
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
         }
-        return redirect()->route('datasigasiprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));   
+        return redirect()->route('datasigasiprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"))->with(['success' => 'Data berhasil diverifikasi.']);   
     }
 
+
+//UNTUK HAPUS DATA DI DATA PRESTASI
     public function destroy(sigasi $sigasi)
     {
         $data = Sigasi::find($sigasi->id_sigasi);
@@ -778,21 +893,31 @@ public function indexpenghargaan()
             $data_sigasi = Sigasi::all();
             $data_personil=Personil::all();
             $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
+            $data_kesatuan=Kesatuan::all();
         }elseif(auth()->user()->id_aktor==2 ){
-            $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-        ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
-        $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+            if(auth()->user()->id_satker==8){
+                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',11)->get();
+            $data_personil=Personil::where('id_kesatuan',11)->get();
             $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
+            $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
+            $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }
         }else{
-        $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
-        $data_personil=Personil::where('id_user',auth()->user()->id)->get();
-        $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
+            $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
+            $data_personil=Personil::where('id_user',auth()->user()->id)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
         }
-        return redirect()->route('datasigasiprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));      
+        return redirect()->route('datasigasiprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"))->with(['danger' => 'Data berhasil dihapus.']);      
     }
+    
+//UNTUK HAPUS DATA DI DATA PENGHARGAAN
     public function destroypenghargaan(sigasi $sigasi)
     {
         $data = Sigasi::find($sigasi->id_sigasi);
@@ -801,21 +926,45 @@ public function indexpenghargaan()
             $data_sigasi = Sigasi::all();
             $data_personil=Personil::all();
             $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
+            $data_kesatuan=Kesatuan::all();
         }elseif(auth()->user()->id_aktor==2 ){
-            $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-        ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
-        $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+            if(auth()->user()->id_satker==8){
+                $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',11)->get();
+            $data_personil=Personil::where('id_kesatuan',11)->get();
             $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
+            $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
+            $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }
         }else{
-        $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
-        $data_personil=Personil::where('id_user',auth()->user()->id)->get();
-        $data_pangkat=Pangkat::all();
-        $data_kesatuan=Kesatuan::all();
+            $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
+            $data_personil=Personil::where('id_user',auth()->user()->id)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
         }
-        return redirect()->route('datasigasipenghargaan', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));     
+        return redirect()->route('datasigasipenghargaan', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"))->with(['danger' => 'Data berhasil dihapus.']);     
     }
+
+ public function destroybuktiprestasi($id_bukti_prestasi)
+    {
+        $data = BuktiPrestasi::find($id_bukti_prestasi);
+        $data->delete();
+        return redirect()->route('datasigasiprestasi')->with(['danger' => 'Bukti prestasi berhasil dihapus']);
+    }
+
+ public function destroybuktipenghargaan($id_bukti_penghargaan)
+    {
+        $data = BuktiPenghargaan::find($id_bukti_penghargaan);
+        $data->delete();
+        return redirect()->route('datasigasipenghargaan')->with(['danger' => 'Bukti penghargaan berhasil dihapus']);
+    }
+
+
     // public function search(Request $request)
     // {
     //     if(auth()->user()->id_aktor == 1){
@@ -850,6 +999,8 @@ public function indexpenghargaan()
     //     $data_kesatuan=Kesatuan::all();
     //     return view('admin.sigasi.dataprestasi',compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));    
     // }
+    
+    //FILTER UNTUK CARI CETAK DAN EKSPORT DI HALAMAN DATA PENGHARGAAN
     public function filtersigasi(Request $request)
     {
         if(auth()->user()->id_aktor==1){
@@ -1129,16 +1280,23 @@ public function indexpenghargaan()
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
         }elseif(auth()->user()->id_aktor==2 ){
+            if(auth()->user()->id_satker==8){
+            $data_personil=Personil::where('id_kesatuan',11)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
             $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
+            }
         }else{
             $data_personil=Personil::where('id_user',auth()->user()->id)->get();
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
         }
+        
         if($request->submit == 'submit3'){
-        return redirect()->route('datasigasipenghargaan', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));   
+        return view('admin.sigasi.datapenghargaan', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));   
         }elseif($request->submit == 'submit1'){
             return view('admin.sigasi.exportpenghargaan', compact("data_sigasi"));   
         }
@@ -1146,6 +1304,8 @@ public function indexpenghargaan()
             return view('admin.sigasi.cetakpenghargaan', compact("data_sigasi")); 
         }
     }
+    
+    //FILTER UNTUK CARI CETAK DAN EKSPORT DI HALAMAN DATA PRESTASI
     public function filterprestasi(Request $request)
     {
         if(auth()->user()->id_aktor==1){
@@ -1405,16 +1565,22 @@ public function indexpenghargaan()
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
         }elseif(auth()->user()->id_aktor==2 ){
+            if(auth()->user()->id_satker==8){
+            $data_personil=Personil::where('id_kesatuan',11)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
             $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
+            }
         }else{
             $data_personil=Personil::where('id_user',auth()->user()->id)->get();
             $data_pangkat=Pangkat::all();
             $data_kesatuan=Kesatuan::all();
         }
         if($request->submit == 'submit3'){
-            return redirect()->route('datasigasiprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));    
+        return view('admin.sigasi.dataprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));   
             }elseif($request->submit == 'submit1'){
                 return view('admin.sigasi.exportprestasi', compact("data_sigasi"));   
             }
@@ -1423,36 +1589,38 @@ public function indexpenghargaan()
             }
     }
     
-    public function hapusceksigasi(Request $request)
-    {
-        foreach ($request->idsigasi as $data) {
-            Sigasi::where('id_sigasi', $data)->delete();
-        }
-        if(auth()->user()->id_aktor==1 ){
-            $data_sigasi = Sigasi::all();
-            $data_personil=Personil::all();
-            $data_pangkat=Pangkat::all();
-            $data_kesatuan=Kesatuan::all();
-        }else{
-            $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-            ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
-            $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
-            $data_pangkat=Pangkat::all();
-            $data_kesatuan=Kesatuan::all();
-        }
-        return view('admin.sigasi.datapenghargaan',compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));
-    }
-    public function formotomatis(Request $request)
-    {
-        $data_personil = Personil::where('nrpnip',$request->nrpnip)->get();
-        $data = array(
-            'nama'      =>  $data_personil->nama,
-            'nrpnip'      =>  $data_personil->nrpnip,
-            'id_pangkat'   =>  $data_personil->id_pangkat,
-            'id_kesatuan'   =>  $data_personil->id_kesatuan,
-            'alamat'    =>  $data_personil->jabatan);
-            return json_encode($data);
-    }
+    // public function hapusceksigasi(Request $request)
+    // {
+    //     foreach ($request->idsigasi as $data) {
+    //         Sigasi::where('id_sigasi', $data)->delete();
+    //     }
+    //     if(auth()->user()->id_aktor==1 ){
+    //         $data_sigasi = Sigasi::all();
+    //         $data_personil=Personil::all();
+    //         $data_pangkat=Pangkat::all();
+    //         $data_kesatuan=Kesatuan::all();
+    //     }else{
+    //         $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+    //         ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
+    //         $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+    //         $data_pangkat=Pangkat::all();
+    //         $data_kesatuan=Kesatuan::all();
+    //     }
+    //     return view('admin.sigasi.datapenghargaan',compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));
+    // }
+    // public function formotomatis(Request $request)
+    // {
+    //     $data_personil = Personil::where('nrpnip',$request->nrpnip)->get();
+    //     $data = array(
+    //         'nama'      =>  $data_personil->nama,
+    //         'nrpnip'      =>  $data_personil->nrpnip,
+    //         'id_pangkat'   =>  $data_personil->id_pangkat,
+    //         'id_kesatuan'   =>  $data_personil->id_kesatuan,
+    //         'alamat'    =>  $data_personil->jabatan);
+    //         return json_encode($data);
+    // }
+    
+    //TAMBAH BUKTI PRESTASI
     public function tambahbuktiprestasi(Request $request){
             if ($request->hasFile('file_bukti_prestasi')) {
                 $files = [];
@@ -1470,19 +1638,34 @@ public function indexpenghargaan()
                 }
             }
             if(auth()->user()->id_aktor==1 ){
-                $data_sigasi = Sigasi::all();
-                $data_personil=Personil::all();
-                $data_pangkat=Pangkat::all();
-                $data_kesatuan=Kesatuan::all();
-            }else{
+            $data_sigasi = Sigasi::all();
+            $data_personil=Personil::all();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+        }elseif(auth()->user()->id_aktor==2 ){
+            if(auth()->user()->id_satker==8){
                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
-                $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
-                $data_pangkat=Pangkat::all();
-                $data_kesatuan=Kesatuan::all();
+            ->where('tb_personil.id_kesatuan',11)->get();
+            $data_personil=Personil::where('id_kesatuan',11)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
+            $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
+            $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
             }
-            return redirect()->route('datasigasiprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));   
+        }else{
+            $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
+            $data_personil=Personil::where('id_user',auth()->user()->id)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
         }
+            return redirect()->route('datasigasiprestasi', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"))->with(['success' => 'Bukti prestasi berhasil ditambah.']);   
+        }
+        
+    //TAMBAH BUKTI PENGHARGAAN
     public function tambahbuktipenghargaan(Request $request){
             if ($request->hasFile('file_bukti_penghargaan')) {
                 $files = [];
@@ -1500,17 +1683,30 @@ public function indexpenghargaan()
                 }
             }
             if(auth()->user()->id_aktor==1 ){
-                $data_sigasi = Sigasi::all();
-                $data_personil=Personil::all();
-                $data_pangkat=Pangkat::all();
-                $data_kesatuan=Kesatuan::all();
-            }else{
+            $data_sigasi = Sigasi::all();
+            $data_personil=Personil::all();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+        }elseif(auth()->user()->id_aktor==2 ){
+            if(auth()->user()->id_satker==8){
                 $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
-                ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
-                $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
-                $data_pangkat=Pangkat::all();
-                $data_kesatuan=Kesatuan::all();
+            ->where('tb_personil.id_kesatuan',11)->get();
+            $data_personil=Personil::where('id_kesatuan',11)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+            }else{
+            $data_sigasi = Sigasi::leftJoin('tb_personil', 'tb_sigasi.id_personil', '=', 'tb_personil.id_personil')
+            ->where('tb_personil.id_kesatuan',auth()->user()->id_kesatuan)->get();
+            $data_personil=Personil::where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
             }
-            return redirect()->route('datasigasipenghargaan', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"));   
+        }else{
+            $data_sigasi = Sigasi::where('id_user',auth()->user()->id)->get();
+            $data_personil=Personil::where('id_user',auth()->user()->id)->get();
+            $data_pangkat=Pangkat::all();
+            $data_kesatuan=Kesatuan::all();
+        }
+            return redirect()->route('datasigasipenghargaan', compact("data_sigasi","data_personil","data_pangkat","data_kesatuan"))->with(['success' => 'Bukti penghargaan berhasil ditambah.']);   
         }
     }

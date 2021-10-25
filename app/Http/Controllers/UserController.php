@@ -40,17 +40,22 @@ class UserController extends Controller
             'jabatan'=>$request->jabatan,
             'nrpnip'=>$request->nrpnip,
         ]);
-        return redirect()->route('edituser',$user->id);  
+        return redirect()->route('edituser',$user->id)->with(['success' => 'Data berhasil diubah.']);  
     }
     public function updatepassword(Request $request, User $user)
     {
-        if (Hash::check($request->password, $user->password)) {
+return 'tes';
+if($request->password == $request->konfirmasipassword){        
+if (Hash::check($request->password, $user->password)) {
     $user->udpate(array([
         'password' => Hash::make($request->password),
     ]))->save();
     }
     else{
-        return redirect()->back();
-    }
+        return redirect()->back()->with(['success' => 'Password berhasil diubah.']);
+	}
+}else{
+return redirect()->back()->with(['failed' => 'Password gagal diubah, pastikan password dan konfirmasi password sama.']);
 }
+    }
 }

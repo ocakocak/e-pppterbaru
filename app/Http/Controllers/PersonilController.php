@@ -60,7 +60,7 @@ class PersonilController extends Controller
         $data_personil->id_user = auth()->user()->id;
         $data_personil->save();
         $data_personil = Personil::all();
-        return redirect()->route('tambahsigasi');    
+        return redirect()->back()->with(['success' => 'Data berhasil ditambah.']);    
     }
     public function createdatapersonil(Request $request)
     {
@@ -90,7 +90,7 @@ class PersonilController extends Controller
             }
         $data_pangkat=Pangkat::all();
         $data_kesatuan=Kesatuan::all();
-        return redirect()->route('datapersonil',compact('data_personil',"data_pangkat","data_kesatuan"));    
+        return redirect()->route('datapersonil',compact('data_personil',"data_pangkat","data_kesatuan"))->with(['success' => 'Date personel berhasil ditambah.']);    
     }
 
     public function edit(Personil $personil)
@@ -126,7 +126,7 @@ class PersonilController extends Controller
             }else{
                 $data_personil = Personil::where('id_user',auth()->user()->id)->get();
             }
-        return redirect()->route('datapersonil',compact("data_personil"));  
+        return redirect()->route('datapersonil',compact("data_personil"))->with(['success' => 'Data personel berhasil diubah.']);  
     }
 
     public function destroy(Personil $personil)
@@ -140,7 +140,7 @@ class PersonilController extends Controller
             }else{
                 $data_personil = Personil::where('id_user',auth()->user()->id)->get();
             }
-        return redirect()->route('datapersonil',compact("data_personil"));    
+        return redirect()->route('datapersonil',compact("data_personil"))->with(['danger' => 'Data personel berhasil dihapus.']);    
     }
     public function search(Request $request)
     {

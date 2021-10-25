@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="card" style="border-top-width: 0.2cm; border-top-color: #6a381f">
-    <div class="card-header">
+<a style="color:#6a381f" class="ml-3 pl-1 mt-3" href="{{ route('datasigasiprestasi') }}">
+        <i class="fas fa-arrow-circle-left"></i></i> Kembali
+    </a> 
+   <div class="card-header">
         <h4>
             <button data-toggle="modal" data-target="#tambahPersonil" style="color: white;" class="btn btn-polda">
                 <i class="fas fa-plus-circle"></i> &nbsp; Tambah Data Personel
@@ -16,8 +19,7 @@
             <div class="card-body">
                 @csrf
                 @method('patch')
-                <p style="color: #99582a; font-size:25px; font-weight:bold" class="text-center">Ubah Prestasi dan
-                    Penghargaan</p>
+                <p style="color: #99582a; font-size:25px; font-weight:bold" class="text-center">Ubah Prestasi</p>
 
                 <!-- DATA PERSONEL -->
                 <p style="color:#6e0d25; font-weight:bold; font-size:20px">Data Personel</p>
@@ -53,107 +55,15 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Uraian Prestasi</label>
-                                <input name="nama_prestasi" value="{{$data_sigasi->nama_prestasi}}" type="text"
-                                    class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label>Unggah File Kronologis Prestasi</label>
-                                <input name="deskripsi" type="file" value="{{$data_sigasi->deskripsi}}"
-                                    class="form-control">
+                                <input name="nama_prestasi" value="{{$data_sigasi->nama_prestasi}}" type="text" class="form-control" required>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <hr>
-
-                <!-- PENGHARGAAN -->
-                <p style="color:#6e0d25; font-weight:bold; font-size:20px">Surat Permohonan Penghargaan</p>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label>Unggah file surat</label>
-                                <input name="file_bukti_surat" value="{{$data_sigasi->file_bukti_surat}}" type="file"
-                                    class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr style="background-color:red">
-                <!-- PENGHARGAAN -->
-                <p style="color:#6e0d25; font-weight:bold; font-size:20px">Penghargaan yang Telah Diterima</p>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label>Jenis Penghargaan</label>
-                                <select class="form-control" id="mySelect" name="jenis_penghargaan">
-                                    @if($data_sigasi->jenis_penghargaan !== null)
-                                    <option value="{{$data_sigasi->jenis_penghargaan}}">
-                                        {{$data_sigasi->jenis_penghargaan}}</option>
-                                    <option onselect="pol()" value="Polri">Penghargaan dari Polri</option>
-                                    <option onselect="npol()" value="Non Polri">Penghargaan dari Badan/Instansi Luar
-                                        Polri</option>
-                                    @else
-                                    <option value="" style="color: grey;" disabled selected>-Pilih Jenis Penghargaan-
-                                    </option>
-                                    <option onselect="pol()" value="Polri">Penghargaan dari Polri</option>
-                                    <option onselect="npol()" value="Non Polri">Penghargaan dari Badan/Instansi Luar
-                                        Polri</option>
-                                    @endif
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <!--<div id="nonpol">-->
-                                <!--    <input id="tingkat" name="tingkat" type="text" class="form-control">-->
-                                <!--</div>-->
-                                <div id="pol">
-                                    <label>Jenis Penghargaan</label>
-                                        <select class="form-control" id="jenis_penghargaan"name="jenis_penghargaan">
-                                            <option value="" style="color: grey;" disabled selected>-Pilih Jenis Penghargaan-</option>
-                                            <option value="KPLB">KPLB</option>
-                                            <option value="KPLBA">KPLBA</option>
-                                            <option value="Promosi Mengikuti Pendidikan">Promosi Mengikuti Pendidikan</option>
-                                            <option value="Promosi Jabatan">Promosi Jabatan</option>
-                                            <option value="Tanda Penghargaan">Tanda Penghargaan</option>
-                                        </select>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label>Nama Penghargaan</label>
-                                <input name="nama_penghargaan" value="{{$data_sigasi->nama_penghargaan}}" type="text"
-                                    class="form-control">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Pemberi Penghargaan</label>
-                                <input name="sumber" type="text" value="{{$data_sigasi->sumber}}" class="form-control">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Keterangan Penghargaan</label>
-                                <input name="keterangan_penghargaan" type="text" value="{{$data_sigasi->keterangan_penghargaan}}" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="row">
-                        </div>
-                    </div>
-                </div>
-
 
             </div>
             <div class="card-footer text-right">
-                <button class="btn btn-primary mr-1" type="submit"><i class="fas fa-save"></i></button>
+                <button class="btn btn-polda mr-1" style="color:white"type="submit"><i class="fas fa-save"></i></button>
                 <button class="btn btn-danger" type="reset"><i class="fas fa-eraser"></i></button>
             </div>
         </form>

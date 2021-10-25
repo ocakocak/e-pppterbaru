@@ -1,6 +1,6 @@
 <footer class="main-footer">
     <div class="footer-right">
-        Copyright &copy; 2018
+        Copyright &copy; 2021
     </div>
 </footer>
 </div>
@@ -83,6 +83,24 @@ integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07j
 
     });
 </script>
+
+<script type="text/javascript">
+    $('#SelectPengajuan2').on('change', function() {
+        var value = $(this).val();
+        if (value == "1") {
+            $("#catatan_validasi2").hide();
+        } else if (value == "2") {
+            $("#catatan_validasi2").show();
+        }
+    });
+
+    $(document).ready(function() {
+        $("#catatan_validasi2").hide();
+
+    });
+</script>
+
+
 <script>
             $(document).ready(function() {
                 $('#isi').summernote({

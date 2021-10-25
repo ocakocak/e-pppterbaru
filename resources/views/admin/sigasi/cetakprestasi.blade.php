@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Sahabat Profesional Indonesia</title>
     <meta content="" name="description">
 
     <meta content="" name="keywords">
@@ -158,7 +157,7 @@
                     <td style="width:30px" valign="top">
                         <p>{{ $loop->iteration }}</p>
                     </td>
-                    <td style="width:50px" class="align-top text-justify"><br>{{ date('d-m-Y', strtotime($dg->tanggal_input)) }} </td>
+                    <td style="width:50px;text-align:justify" valign="top">{{ date('d-m-Y', strtotime($dg->tanggal_input)) }} </td>
                     <td style="width:150px;text-align:justify" valign="top">{{ $dg->personil->nama }} </td>
                     <td style="width:150px;text-align:justify" valign="top">{{ $dg->personil->pangkat->pangkats }}</td>
                     <td style="width:150px;text-align:justify" valign="top">{{ $dg->personil->nrpnip }}</td>
@@ -171,7 +170,11 @@
                         @if($dg->keterangan == 0)
                         Belum Ditindak Lanjuti
                         @elseif($dg->keterangan == 1)
-                        Sudah Ditindak Lanjuti ke POLRES
+				@if($dg->personil->id_kesatuan == 11)
+                                    No Surat : {{$dg->no_file_bukti_surat}} <br> Sedang di Tindak Lanjut POLDA
+                                @else
+                                    No Surat : {{$dg->no_file_bukti_surat}}  Sedang di Tindak Lanjut POLRES
+                                @endif
                         @elseif($dg->keterangan == 2)
                         Sudah Ditindak Lanjuti ke POLDA
                         @endif

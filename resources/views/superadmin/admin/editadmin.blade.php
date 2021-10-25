@@ -2,8 +2,11 @@
 
 @section('content')
 <div class="card card-primary">
+<a style="color:#6a381f" class="ml-3 pl-1 mt-3" href="{{ route('dataadmin') }}">
+        <i class="fas fa-arrow-circle-left"></i></i> Kembali
+    </a>
     <div class="card-header">
-        <h4 style="color:#6a381f">Formulir Ubah admin</h4>
+        <h4 style="color:#6a381f">Formulir Ubah Admin</h4>
     </div>
     <div class="card-body p-0">
         <form action="{{ route('updateadmin',$data_admin->id) }}" method="post" enctype="multipart/form-data">
@@ -14,13 +17,14 @@
                     <div class="col-md-12 row">
                         <div class="col-md-4 form-group">
                             <label>Username</label>
-                            <input value="{{$data_admin->username}}" type="text" name="username" class="form-control">
+                            <input value="{{$data_admin->username}}" type="text" name="username" class="form-control" required>
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Kesatuan</label>
                             <div class="row ml-1" style="height:40px">
-                                <select class="select" id="id_kesatuan" name="id_kesatuan">
+                                <select class="select" id="id_kesatuan" name="id_kesatuan" required>
                                     <div>
+					<option value="{{$data_admin->id_kesatuan}}">{{$data_admin->kesatuan->kesatuans}}</option>
                                         @if ($data_kesatuan != null)
                                         @foreach ($data_kesatuan as $djs)
 
@@ -59,11 +63,11 @@
                         <input type="hidden" value="{{$data_admin->username}}" name="username" class="form-control">
                         <div class="col-md-4 form-group">
                             <label>Password Baru</label>
-                            <input type="password" name="password" class="form-control">
+                            <input type="password" name="password" class="form-control" required>
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Konfirmasi Password Baru</label>
-                            <input type="password" name="konfirmasipassword" class="form-control">
+                            <input type="password" name="konfirmasipassword" class="form-control" required>
                         </div>
                     </div>
                 </div>
@@ -76,4 +80,5 @@
         </form>
     </div>
 </div>
+
 @endsection

@@ -65,20 +65,37 @@
     <div id="app">
         <div class="main-wrapper">
             <!-- <div class="main-content"> -->
-            <div class="card mx-auto my-auto pt-5 rounded" style="width: 30rem; top:86px">
-                <img class="mx-auto" src="presisi.png" style="width: 13cm; text-align:center" alt="...">
-                <h2 style="text-align: center;">Silahkan masuk untuk melanjutkan</h2><br>
+            <div class="card mx-auto my-auto pt-4 rounded" style="width: 30rem; top:86px">
+                <a style="color:#6a381f" class="ml-3 pl-1" href="http://e-ppp.bengkulu.polri.go.id/">
+                        <i class="fas fa-arrow-circle-left"></i></i> Halaman utama
+                </a>
+		<div class="rounded float-right mr-3">
+                    <img class="rounded float-right" src="logoeppp.png" style="width: 2cm;" alt="...">
+		</div>
+		<img class="mx-auto" src="presisi.png" style="width: 13cm; text-align:center" alt="...">
+		<br>
                 <form action="{{ route('login') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row mr-3 ml-3">
                         <label style="font-size: 15px;">Username</label>
                         <input name="username" type="text" class="form-control">
                     </div>
+@error('username')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                     <div class="form-group row mr-3 ml-3">
                         <label style="font-size: 15px;">Password</label>
                         <input name="password" type="password" class="form-control">
                     </div>
-                    <div class="mx-auto mb-4 mr-2" style="text-align: center;">
+                
+@error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+    <div class="mx-auto mb-4 mr-2" style="text-align: center;">
                         <button class="btn btn-polda" style="color: white;" type="submit">Masuk</i></button>
                     </div>
                 </form>

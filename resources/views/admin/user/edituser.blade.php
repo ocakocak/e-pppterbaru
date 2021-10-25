@@ -6,6 +6,7 @@
         <h4 style="color:#6a381f">Formulir Ubah Akun</h4>
     </div>
     <div class="card-body p-0">
+@include('alert')
         <form action="{{ route('updateuser', $data_user->id) }}" method="post" enctype="multipart/form-data">
             <div class="card-body">
                 @csrf
@@ -18,7 +19,7 @@
 
                         <div class="col-md-4 form-group">
                             <label>Username</label>
-                            <input type="text" value="{{$data_user->username}}" name="username" class="form-control">
+                            <input type="text" value="{{$data_user->username}}" name="username" class="form-control" required>
                         </div>
                         <input type="hidden" value="{{$data_user->id_kesatuan}}" name="id_kesatuan"
                             class="form-control">
@@ -51,11 +52,11 @@
                         <input type="hidden" value="{{$data_user->username}}" name="username" class="form-control">
                         <div class="col-md-4 form-group">
                             <label>Password Baru</label>
-                            <input type="password" name="password" class="form-control">
+                            <input type="password" name="password" class="form-control" required>
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Konfirmasi Password Baru</label>
-                            <input type="password" name="konfirmasipassword" class="form-control">
+                            <input type="password" name="konfirmasipassword" class="form-control"required>
                         </div>
                     </div>
                 </div>

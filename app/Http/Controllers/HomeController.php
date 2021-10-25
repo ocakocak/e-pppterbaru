@@ -46,7 +46,11 @@ class HomeController extends Controller
             $data_personil = count(Personil::where('id_user',auth()->user()->id)->get());
         $data_prestasi = count(Sigasi::where('id_user',auth()->user()->id)->get());
         $data_penghargaan = count(Sigasi::where('id_user',auth()->user()->id)->whereNotNull('jenis_penghargaan')->get());
-        }
+        }else{
+$data_personil = count(Personil::where('id_user',auth()->user()->id)->get());
+        $data_prestasi = count(Sigasi::where('id_user',auth()->user()->id)->get());
+        $data_penghargaan = count(Sigasi::where('id_user',auth()->user()->id)->whereNotNull('jenis_penghargaan')->get());
+}
         return view('superadmin.dashboard', compact("data_prestasi","data_penghargaan","data_personil"));  
     }
     public function jenissyarat()
@@ -56,36 +60,62 @@ class HomeController extends Controller
     public function updatepassword(Request $request)
     {
         $data_pangkat = Pangkat::all();
-        $data_user = User::where('username',$request->username)->first();
-        $data_user->update(['password'=>Hash::make($request->password)]);
-        if(auth()->user()->id_aktor==1||auth()->user()->id_aktor==2||auth()->user()->id_aktor==4){
-            $data_kesatuan = Kesatuan::all();
-            }else{
-                $data_kesatuan = Kesatuan::where('id_kesatuan',$data_user->id_kesatuan)->get();   
-            }
-            return view('admin.user.edituser', compact("data_user","data_pangkat","data_kesatuan"));
+        if ($request->password == $request->konfirmasipassword){
+		$data_user = User::where('username',$request->username)->first();
+		$data_user->update(['password'=>Hash::make($request->password)]);
+        	if(auth()->user()->id_aktor==1||auth()->user()->id_aktor==2||auth()->user()->id_aktor==4){
+            		$data_kesatuan = Kesatuan::all();
+            	}else{
+                	$data_kesatuan = Kesatuan::where('id_kesatuan',$data_user->id_kesatuan)->get();   
+            	}
+        return redirect()->back()->with(['success' => 'Password berhasil diubah.']);
+	}else{
+	 $data_user = User::where('username',$request->username)->first();
+	if(auth()->user()->id_aktor==1||auth()->user()->id_aktor==2||auth()->user()->id_aktor==4){
+                        $data_kesatuan = Kesatuan::all();
+                }else{
+                        $data_kesatuan = Kesatuan::where('id_kesatuan',$data_user->id_kesatuan)->get();
+                }
+ 	return redirect()->back()->with(['danger' => 'Password gagal diubah, Harap Masukkan Password dan Konfirmasi Password dengan Benar.']);
+    	}
     }
     public function updatepasswordpengguna(Request $request)
     {
         $data_pangkat = Pangkat::all();
         $data_user = User::where('username',$request->username)->first();
-        $data_user->update(['password'=>Hash::make($request->password)]);
-        if(Auth::user()->id_aktor==1){
-            $data_pengguna = User::where('id_aktor',3)->get();
-        }elseif(Auth::user()->id_aktor==2){
-            $data_pengguna = User::where('id_aktor',3)->where('id_kesatuan',auth()->user()->id_kesatuan)->get();
-        }else{
-            $data_pengguna = User::where('id_user',auth()->user()->id_user)->get();
-        }
-        return redirect()->route('datapengguna',compact("data_pengguna")); 
+ 	if ($request->password == $request->konfirmasipassword){
+        	$data_user->update(['password'=>Hash::make($request->password)]);
+        	if(Auth::user()->id_aktor==1){
+            		$data_pengguna = User::where('id_aktor',3)->get();
+        	}elseif(Auth::user()->id_aktor==2){
+            		$data_pengguna = User::where('id_aktor',3)->where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+        	}else{
+            		$data_pengguna = User::where('id_user',auth()->user()->id_user)->get();
+        	}
+        	return redirect()->route('datapengguna',compact("data_pengguna"))->with(['success' => 'Password berhasil diubah.']);}
+	else{
+		if(Auth::user()->id_aktor==1){
+                        $data_pengguna = User::where('id_aktor',3)->get();
+                }elseif(Auth::user()->id_aktor==2){
+                        $data_pengguna = User::where('id_aktor',3)->where('id_kesatuan',auth()->user()->id_kesatuan)->get();
+                }else{
+                        $data_pengguna = User::where('id_user',auth()->user()->id_user)->get();
+                }
+ 		return redirect()->route('datapengguna',compact("data_pengguna"))->with(['danger' => 'Password gagal diubah, Harap Masukkan Password dan Konfirmasi Password dengan benar']);
+	}	 
     }
     public function updatepasswordadmin(Request $request)
     {
         $data_pangkat = Pangkat::all();
         $data_user = User::where('username',$request->username)->first();
+	if ($request->password == $request->konfirmasipassword){
         $data_user->update(['password'=>Hash::make($request->password)]);
         $data_admin = User::where('id_aktor',2)->get();
-        return redirect()->route('dataadmin',compact("data_admin"));  
+        return redirect()->route('dataadmin',compact("data_admin"))->with(['success' => 'Password berhasil diubah.']);
+	}else{
+	$data_admin = User::where('id_aktor',2)->get();
+	return redirect()->route('dataadmin',compact("data_admin"))->with(['danger' => 'Password gagal diubah, Harap Masukkan Password dan Konfirmasi Password dengan Benar.']);
+	}
     }
     public function logout()
     {
